@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:alpine
+    container_name: mi-postgres-main
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: radiusmain
+    volumes:
+      - postgres-data-main:/var/lib/postgresql/data  # Volumen único para bdmain
+    ports:
+      - "5432:5432"  # Mantenemos el puerto 5432 aquí
+    networks:
+      - my-network
+
+  ssh-cron:
+    image: ghcr.io/linuxserver/openssh-server:latest
+    container_name: ssh-cron
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - PASSWORD=admin
+      - USERNAME=admin
+    volumes:
+      - cron-jobs:/etc/crontabs
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "2222:2222"  # Puerto SSH
+    networks:
+      - my-network
+
+volumes:
+  postgres-data-main:  # Volumen único para el servicio bdmain
+  cron-jobs:
+
+networks:
+  my-network:

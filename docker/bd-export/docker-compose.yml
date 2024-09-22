@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:alpine
+    container_name: mi-postgres-export
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: radiusexport
+    volumes:
+      - postgres-data-second:/var/lib/postgresql/data  # Volumen único para bd-second
+    ports:
+      - "5433:5432"  # Mapea el puerto 5433 del host al 5432 del contenedor
+    networks:
+      - postgres-network
+
+volumes:
+  postgres-data-second:  # Volumen único para el servicio bd-second
+
+networks:
+  postgres-network:

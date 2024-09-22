@@ -1,0 +1,16 @@
+{
+    "radiusmain": {
+        "dbname": "radiusmain",
+        "user": "admin",
+        "password": "admin",
+        "host": "localhost",
+        "port": 5432
+    },
+    "radiusexport": {
+        "dbname": "radiusexport",
+        "user": "admin",
+        "password": "admin",
+        "host": "localhost",
+        "port": 5433
+    }
+}
